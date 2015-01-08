@@ -18,8 +18,16 @@ def get_facility_name(data, old_pos):
     end_search = "</p>"
     start_pos = data.find(start_search, old_pos)
     end_pos = data.find(end_search, start_pos)
-    
-    facility_name = data[start_pos + len(start_search):end_pos].strip()
+
+    while end_pos < len(data) and end_pos != -1:
+        facility_name = data[start_pos + len(start_search):end_pos].strip()
+        print facility_name
+
+        start_pos = data.find(start_search, end_pos + 1)
+        end_pos = data.find(end_search, start_pos)
+        facility_name = data[start_pos + len(start_search):end_pos].strip()
+
+        print facility_name
 
     return facility_name
     
@@ -29,6 +37,8 @@ def parse_data(data):
 
     # Find first bit of data
     print get_facility_name(data, 0)
+
+
 
     return parsed_data
 
