@@ -1,7 +1,6 @@
 import urllib2
 
 def get_data(url):
-
     response = urllib2.urlopen(url)
     html = response.read()
 
@@ -18,13 +17,17 @@ def get_facility_name(data, old_pos):
     end_search = "</p>"
     start_pos = data.find(start_search, old_pos)
     end_pos = data.find(end_search, start_pos)
+        
+    facility_name = data[start_pos + len(start_search):end_pos].strip()
+    print facility_name
 
     while end_pos < len(data) and end_pos != -1:
-        facility_name = data[start_pos + len(start_search):end_pos].strip()
-        print facility_name
-
         start_pos = data.find(start_search, end_pos + 1)
         end_pos = data.find(end_search, start_pos)
+
+        if end_pos == -1:
+            break
+
         facility_name = data[start_pos + len(start_search):end_pos].strip()
 
         print facility_name
@@ -36,9 +39,7 @@ def parse_data(data):
     parsed_data = []
 
     # Find first bit of data
-    print get_facility_name(data, 0)
-
-
+    get_facility_name(data, 0)
 
     return parsed_data
 
