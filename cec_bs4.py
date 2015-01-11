@@ -10,6 +10,9 @@ for table in soup.findAll('table'):
     if table.parent.name == 'td':
         data = table
 
+closings_list = []
 for td in data.findAll('td'):
     if td.text.strip() != "":
-        print td.text.strip()
+        closings_list.append(td.text.strip())
+
+print closings_list
