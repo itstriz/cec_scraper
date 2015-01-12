@@ -20,11 +20,12 @@ for tr in data.findAll('tr'):
     if school_name == "":
         school_name = closings[count - 1]['school_name']
         city = closings[count - 1]['city']
-
-    closings.append({'school_name': school_name,
-                     'city': city,
-                     'status': status})     
-    count = count + 1
+    
+    if school_name != "Facility Name":
+        closings.append({'school_name': school_name,
+                         'city': city,
+                         'status': status})     
+        count = count + 1
 
 for closing in closings:
     print "%s %s %s" % (closing['school_name'], closing['city'], closing['status'])
