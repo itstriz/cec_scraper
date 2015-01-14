@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+import sys
 from urllib2 import urlopen
 
 BASE_URL = "http://www.emergencyclosingcenter.com/ecc/home.jsp"
@@ -13,7 +14,13 @@ for table in soup.findAll('table'):
 
 closings = []
 count = 0
-for tr in data.findAll('tr'):
+table_rows = data.findAll('tr')
+
+if table_rows[1].text.strip() == "No facilities have reported.":
+    print "No closings today."
+    sys.exit()
+
+for tr in table_rows:
     school_name = tr.findAll('td')[1].text.strip()
     city = tr.findAll('td')[3].text.strip()
     status = tr.findAll('td')[5].text.strip()
