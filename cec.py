@@ -28,9 +28,9 @@ for tr in table_rows:
     # Get Open or Closed Status
     closed = status.find("CLOSED", status.find(")"))
     if closed == -1:
-        closed = "Closed"
-    else:
         closed = "Open"
+    else:
+        closed = "Closed"
 
     if status.find("TODAY") != -1:
         status_date = datetime.now()
