@@ -24,6 +24,14 @@ for tr in table_rows:
     school_name = tr.findAll('td')[1].text.strip()
     city = tr.findAll('td')[3].text.strip()
     status = tr.findAll('td')[5].text.strip()
+
+    # Get Open or Closed Status
+    closed = status.find("CLOSED", status.find(")"))
+    if closed == -1:
+        closed = "Closed"
+    else:
+        closed = "Open"
+
     if status.find("TODAY") != -1:
         status_date = datetime.now()
         status_date = status_date.strftime("%Y-%m-%d")
@@ -42,8 +50,9 @@ for tr in table_rows:
         closings.append({'school_name': school_name,
                          'city': city,
                          'status': status,
+                         'closed': str(closed),
                          'status_date': status_date})     
         count = count + 1
 
 for closing in closings:
-    print "%s: %s - %s [%s]" % (closing['school_name'], closing['city'], closing['status'], closing['status_date'])
+    print "%s: %s - %s [%s]" % (closing['school_name'], closing['city'], closing['closed'], closing['status_date'])
