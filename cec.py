@@ -49,7 +49,6 @@ for tr in table_rows:
     if school_name != "Facility Name":
         closings.append({'school_name': school_name,
                          'city': city,
-                         'status': status,
                          'closed': str(closed),
                          'status_date': status_date})     
         count = count + 1
