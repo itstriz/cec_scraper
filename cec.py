@@ -1,7 +1,18 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-import sys
+import sqlite3, sys
 from urllib2 import urlopen
+
+def check_database(closing_info):
+    """ Checks to see if the data already exists """
+    con = sqlite3.connect('closings.db')
+    
+    with con:
+        n = (closing_info['school_name'],)
+        d = (closing_info['status_date'],)
+        cur = con.cursor()
+        cur.execute("SELECT * FROM Closings where name=:n and date=:d", {"n": n, "d": d})
+        print cur.fetchone()
 
 BASE_URL = "http://www.emergencyclosingcenter.com/ecc/home.jsp"
 
@@ -55,3 +66,4 @@ for tr in table_rows:
 
 for closing in closings:
     print "%s: %s - %s [%s]" % (closing['school_name'], closing['city'], closing['closed'], closing['status_date'])
+    check_database(closing)
