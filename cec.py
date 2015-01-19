@@ -8,11 +8,12 @@ def check_database(closing_info):
     con = sqlite3.connect('closings.db')
     
     with con:
-        n = (closing_info['school_name'],)
-        d = (closing_info['status_date'],)
+        n = closing_info['school_name']
+        d = closing_info['status_date']
         cur = con.cursor()
-        cur.execute("SELECT * FROM Closings where name=:n and date=:d", {"n": n, "d": d})
-        print cur.fetchone()
+        cur.execute("SELECT * FROM Closings WHERE name=? AND date=?", (n,d))
+        if not cur.fetchone():
+            print "No match found"
 
 BASE_URL = "http://www.emergencyclosingcenter.com/ecc/home.jsp"
 
