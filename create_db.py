@@ -1,9 +1,19 @@
 import sqlite3 as lite
-import sys
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, Date
+from sqlalchemy.ext.declarative import declarative_base
 
-con = lite.connect('closings.db')
+db = create_engine('sqlite:///closings.db')
 
-with con:
-    cur = con.cursor()
-    cur.execute("CREATE TABLE Closings(id INT, name TEXT, status TEXT, closed BOOL, date DATE)")
+Base = declarative_base()
 
+class Closings(Base):
+    __tablename__ = 'closings'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    status = Column(String)
+    closed = Column(Boolean)
+    date = Column(Date)
+
+
+Base.metadata.create_all(db)
