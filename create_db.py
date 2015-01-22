@@ -15,5 +15,10 @@ class Closings(Base):
     closed = Column(Boolean)
     date = Column(Date)
 
+class LastUpdate(Base):
+    __tablename__ = 'last_update'
+    
+    id = Column(Integer, primary_key=True)
+    date = Column(Date)
 
 Base.metadata.create_all(db)
