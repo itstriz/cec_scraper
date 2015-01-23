@@ -15,9 +15,15 @@ def check_database(closing_info):
         if not cur.fetchone():
             print "No match found"
 
+def save_page(html):
+    f = open('temp.html', 'r+')
+    f.write(html)
+    f.close()
+
 BASE_URL = "http://www.emergencyclosingcenter.com/ecc/home.jsp"
 
 html = urlopen(BASE_URL).read()
+save_page(html)
 soup = BeautifulSoup(html)
 
 for table in soup.findAll('table'):
