@@ -23,7 +23,6 @@ def save_page(html):
 BASE_URL = "http://www.emergencyclosingcenter.com/ecc/home.jsp"
 
 html = urlopen(BASE_URL).read()
-save_page(html)
 soup = BeautifulSoup(html)
 
 for table in soup.findAll('table'):

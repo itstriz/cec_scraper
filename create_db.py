@@ -21,4 +21,5 @@ class LastUpdate(Base):
     id = Column(Integer, primary_key=True)
     date = Column(Date)
 
-Base.metadata.create_all(db)
+def create_database():
+    Base.metadata.create_all(db)
