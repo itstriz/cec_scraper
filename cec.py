@@ -20,10 +20,17 @@ def save_page(html):
     f.write(html)
     f.close()
 
+def use_backup():
+    f = open('temp.html', 'r')
+    html = f.read()
+    f.close()
+    return BeautifulSoup(html)
+
 BASE_URL = "http://www.emergencyclosingcenter.com/ecc/home.jsp"
 
 html = urlopen(BASE_URL).read()
-soup = BeautifulSoup(html)
+#soup = BeautifulSoup(html)
+soup = use_backup()
 
 for table in soup.findAll('table'):
     if table.parent.name == 'td':
